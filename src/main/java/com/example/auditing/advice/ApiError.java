@@ -16,7 +16,7 @@ public class ApiError {
         this.timestamp=LocalDateTime.now();
     }
 
-    public ApiError(LocalDateTime timestamp, String error, HttpStatus httpStatus) {
+    public ApiError( String error, HttpStatus httpStatus) {
         this();
         this.error = error;
         this.httpStatus = httpStatus;
