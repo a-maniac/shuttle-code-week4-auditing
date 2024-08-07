@@ -5,6 +5,7 @@ import com.example.auditing.client.EmployeeClient;
 import com.example.auditing.dto.EmployeeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -24,6 +25,9 @@ public class EmployeeClientImpl implements EmployeeClient {
             ApiResponse<List<EmployeeDto>> employeeList = restClient.get()
                     .uri("/employee/findAllEmployee")
                     .retrieve()
+                    .onStatus(HttpStatusCode::is4xxClientError,(req,res)->{
+                        System.out.println("Client error");
+                    })
                     .body(new ParameterizedTypeReference<>() {
                     });
             return employeeList.getData();
