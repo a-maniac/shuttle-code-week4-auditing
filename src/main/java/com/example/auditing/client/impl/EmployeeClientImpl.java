@@ -30,6 +30,7 @@ public class EmployeeClientImpl implements EmployeeClient {
                     })
                     .body(new ParameterizedTypeReference<>() {
                     });
+            //use .toEntity if we want Api Response
             return employeeList.getData();
         } catch (Exception e) {
             throw new RuntimeException(e);
