@@ -5,6 +5,8 @@ import com.example.auditing.entities.PostEntity;
 import com.example.auditing.exception.ResourceNotFoundException;
 import com.example.auditing.repositories.PostRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 @Service
 public class PostServiceImpl implements  PostService{
 
+    Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
     @Autowired
     PostRepository postRepository;
 
@@ -29,7 +32,7 @@ public class PostServiceImpl implements  PostService{
 
     @Override
     public PostDto createNewPost(PostDto postDto) {
-
+        log.trace("Attempting to create New Post:{}",postDto);
         PostEntity postToBeSaved=modelMapper.map(postDto,PostEntity.class);
         postRepository.save(postToBeSaved);
         return modelMapper.map(postToBeSaved,PostDto.class);
